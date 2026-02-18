@@ -1,7 +1,7 @@
 import { abi } from "./abi";
 
 export const CONTRACT_ADDRESS =
-  "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512" as const;
+  "0x5fbdb2315678afecb367f032d93f642f64180aa3" as const;
 
 export const contractConfig = {
   address: CONTRACT_ADDRESS,

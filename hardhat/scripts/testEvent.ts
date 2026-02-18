@@ -7,16 +7,18 @@ async function main() {
     });
 
     const contract = await viem.getContractAt(
-        "EventTest",
-        "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"
+        "EventTest", // This is your ContractName
+        "0x5fbdb2315678afecb367f032d93f642f64180aa3"
     );
 
+    // This is array destructuring
+    // Object destructuring
     const [wallet] = await viem.getWalletClients();
 
     console.log("Sending tx...");
 
     await contract.write.sendMessage(
-        ["Hello from Hardhat 🔥"],
+        ["Good Morning"],
         { account: wallet.account }
     );
 
