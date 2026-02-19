@@ -10,7 +10,7 @@ contract ModifierTest{
     //4. Events
     //5. Modiers == Middlewares
     //modifier name should be in camleCase
-    modifier onlyOwner(){
+    modifier onlyOwner(){ // In solidity Modifers are basically functions
         //Check the condition
         /*
             if(Condition){
@@ -32,6 +32,7 @@ contract ModifierTest{
     }
 
     //3. Method // Naming Convention should camleCase`
+    // modifiers functions === middleware functions
     function setValueX(uint _num) public onlyOwner{
         x = _num;
     }

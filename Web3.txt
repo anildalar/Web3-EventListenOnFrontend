@@ -4508,3 +4508,28 @@ case Sensitive
 	
 Case Insensitive
 	a equal to A
+
+
+Contract deploy
+x
+Contract deployed success
+x=10;
+
+
+
+x=20;
+
+We have created a setFunction
+
+
+describe
+	before
+	it()
+	it();
+	it();
+
+
+const {a:anil} = connect();
+const {oldProp:newProp} = someObject;
+
+
