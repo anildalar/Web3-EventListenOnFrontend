@@ -4,7 +4,7 @@ pragma solidity ^0.8.28;
 contract ModifierTest{
     //1. Property
     //Type visibilityModier VariableName
-    uint public x; 
+    uint public x; // function x(){} it is only for read operation
     address public myAddress;
 
     //4. Events
@@ -12,6 +12,11 @@ contract ModifierTest{
     //modifier name should be in camleCase
     modifier onlyOwner(){ // In solidity Modifers are basically functions
         //Check the condition
+        if (msg.sender == myAddress) {
+            _;
+        } else {
+            revert("Not Owner!");
+        }
         /*
             if(Condition){
                 True
@@ -19,8 +24,8 @@ contract ModifierTest{
                 False
             }
          */
-        require(msg.sender == myAddress, "Not Owner!");
-        _;
+        //require(msg.sender == myAddress, "Not Owner!");
+        //_;
         
     }   
 
