@@ -11,7 +11,7 @@ contract ModifierTest{
     //5. Modiers == Middlewares
     //modifier name should be in camleCase
     modifier onlyOwner(){ // In solidity Modifers are basically functions
-        //Check the condition
+        //Check the conditionc
         if (msg.sender == myAddress) {
             _;
         } else {
