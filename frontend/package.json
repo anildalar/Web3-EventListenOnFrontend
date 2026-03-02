@@ -9,21 +9,24 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^8.8.0",
     "@tanstack/react-query": "^5.90.21",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "stripe": "^20.4.0",
     "viem": "^2.45.3",
     "wagmi": "^3.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.35",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

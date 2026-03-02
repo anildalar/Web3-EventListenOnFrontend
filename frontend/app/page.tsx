@@ -1,72 +1,78 @@
 'use client'
-//1. Import Area
-import React from 'react'
-import { useWatchContractEvent } from 'wagmi';
 
-//2. Function defination area
-let page = function page() {
-  //2.1 Hooks Area
-  // 
-  /*
-  JS Object
-  {
-    1 . P:V
-    2. Function/Method
+import React, { useState } from 'react'
+import { loadStripe } from '@stripe/stripe-js'
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
+export default function Page() {
+
+  const [amount, setAmount] = useState<number>(100);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const recharge = async () => {
+  try {
+    setLoading(true);
+
+    const res = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount })
+    });
+
+    const data = await res.json();
+
+    if (!data.url) {
+      throw new Error("Unable to create checkout session");
+    }
+
+    // Stripe 2025+ method
+    //redirect the page on data.url
+    //window.location.href = "https://google.com"
+    window.location.href = data.url;
+
+  } catch (err: any) {
+    console.error(err);
+    setError(err.message);
+  } finally {
+    setLoading(false);
   }
-  
-  */
-  useWatchContractEvent({
-    address:"0x5fbdb2315678afecb367f032d93f642f64180aa3",
-    abi:[
-            {
-              "anonymous": false,
-              "inputs": [
-                {
-                  "indexed": true,
-                  "internalType": "address",
-                  "name": "from",
-                  "type": "address"
-                },
-                {
-                  "indexed": false,
-                  "internalType": "string",
-                  "name": "message",
-                  "type": "string"
-                }
-              ],
-              "name": "MessageSent",
-              "type": "event"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "string",
-                  "name": "_msg",
-                  "type": "string"
-                }
-              ],
-              "name": "sendMessage",
-              "outputs": [],
-              "stateMutability": "nonpayable",
-              "type": "function"
-            }
-          ],
-    eventName:"MessageSent",
-    onLogs(logs) {
-      console.log('New logs!', logs[0].args.message);
-      alert(logs[0]?.args?.message);
-    },
-  })
+};
 
-  //2.2
-
-  //2.3
   return (
-    <div>page</div>
-  )
+    <div className="container">
+      <form
+        className="w-25 offset-3 mt-5"
+        onSubmit={(e) => {
+          e.preventDefault();
+          recharge();
+        }}
+      >
+        <input
+          type="number"
+          min="1"
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
+          className="form-control"
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn w-100 btn-success mt-4"
+        >
+          {loading ? "Processing..." : "Recharge Now"}
+        </button>
+
+        {error && (
+          <div className="text-danger mt-3">
+            {error}
+          </div>
+        )}
+      </form>
+    </div>
+  );
 }
-
-
-//3. Export area
-
-export default page;
